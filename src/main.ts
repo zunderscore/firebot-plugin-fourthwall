@@ -23,7 +23,9 @@ import {
     FOURTHWALL_SUBSCRIPTION_EXPIRED_EVENT_ID,
     FOURTHWALL_THANK_YOU_SENT_EVENT_ID,
     FOURTHWALL_NEWSLETTER_SUBSCRIBED_EVENT_ID,
-    FOURTHWALL_PLATFORM_APP_DISCONNECTED_EVENT_ID
+    FOURTHWALL_PLATFORM_APP_DISCONNECTED_EVENT_ID,
+    FOURTHWALL_GIFT_DRAW_STARTED_EVENT_ID,
+    FOURTHWALL_GIFT_DRAW_ENDED_EVENT_ID
 } from "./constants";
 
 const packageInfo = require("../package.json");
@@ -222,8 +224,40 @@ const processWebhook = ({ config, payload }: { config: WebhookConfig, payload: F
             }
             break;
 
+        case "GIFT_DRAW_STARTED":
+        case "GIFT_DRAW_ENDED":
+            switch (payload.type) {
+                case "GIFT_DRAW_STARTED":
+                    eventName = FOURTHWALL_GIFT_DRAW_STARTED_EVENT_ID;
+                    break;
+                
+                case "GIFT_DRAW_ENDED":
+                    eventName = FOURTHWALL_GIFT_DRAW_ENDED_EVENT_ID;
+                    break;
+            }
+
+            eventData = {
+                type: payload.type,
+                ...baseEventData,
+                giftDrawId: payload.data.id,
+                giftDrawType: payload.data.type,
+                giveawayId: payload.data.giveawayId,
+                giveawayFriendlyId: payload.data.giveawayFriendlyId,
+                durationSeconds: payload.data.durationSeconds,
+                from: payload.data.username,
+                email: payload.data.email,
+                donationMessage: payload.data.message,
+                productId: payload.data.offer.id,
+                productName: payload.data.offer.name,
+                productDescription: payload.data.offer.description,
+                productImageUrl: payload.data.offer.primaryImage.url,
+                orderTotalAmount: payload.data.amounts.total.value,
+                currency: payload.data.amounts.total.currency
+            };
+            break;
+
         default:
-            logDebug(`Unknown event type ${(payload as any).type}`);
+            logWarn(`Unknown event type ${(payload as any).type}. Skipping.`);
             return;
     }
 

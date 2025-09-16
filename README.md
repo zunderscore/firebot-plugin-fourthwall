@@ -31,6 +31,8 @@ New events:
 - **Fourthwall: Thank You Sent**
 - **Fourthwall: Newsletter Subscribed**
 - **Fourthwall: Platform App Disconnected**
+- **Fourthwall: Gift Draw Started**
+- **Fourthwall: Gift Draw Ended**
 
 ## Variables
 

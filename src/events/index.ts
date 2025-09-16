@@ -13,7 +13,9 @@ import {
     FOURTHWALL_SUBSCRIPTION_EXPIRED_EVENT_ID,
     FOURTHWALL_THANK_YOU_SENT_EVENT_ID,
     FOURTHWALL_NEWSLETTER_SUBSCRIBED_EVENT_ID,
-    FOURTHWALL_PLATFORM_APP_DISCONNECTED_EVENT_ID
+    FOURTHWALL_PLATFORM_APP_DISCONNECTED_EVENT_ID,
+    FOURTHWALL_GIFT_DRAW_STARTED_EVENT_ID,
+    FOURTHWALL_GIFT_DRAW_ENDED_EVENT_ID
 } from "../constants";
 
 export const FourthwallEventSource: EventSource = {
@@ -80,5 +82,15 @@ export const FourthwallEventSource: EventSource = {
             name: `${PLUGIN_NAME}: Platform App Disconnected`,
             description: "When a Platform App is disconnected from your Fourthwall shop"
         },
+        {
+            id: FOURTHWALL_GIFT_DRAW_STARTED_EVENT_ID,
+            name: `${PLUGIN_NAME}: Gift Draw Started`,
+            description: "When a gift drawing in your Fourthwall shop has started"
+        },
+        {
+            id: FOURTHWALL_GIFT_DRAW_ENDED_EVENT_ID,
+            name: `${PLUGIN_NAME}: Gift Draw Ended`,
+            description: "When a gift drawing in your Fourthwall shop has ended"
+        }
     ]
 }

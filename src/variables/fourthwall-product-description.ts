@@ -1,11 +1,13 @@
 import { ReplaceVariable } from "@crowbartools/firebot-custom-scripts-types/types/modules/replace-variable-manager";
-import { FourthwallGiftEventData, FourthwallProductEventData } from "../fourthwall-types";
+import { FourthwallProductEventData } from "../fourthwall-types";
 import {
     VARIABLE_PREFIX,
     FOURTHWALL_EVENT_SOURCE_ID,
     FOURTHWALL_GIFT_PURCHASE_EVENT_ID,
     FOURTHWALL_PRODUCT_CREATED_EVENT_ID,
-    FOURTHWALL_PRODUCT_UPDATED_EVENT_ID
+    FOURTHWALL_PRODUCT_UPDATED_EVENT_ID,
+    FOURTHWALL_GIFT_DRAW_STARTED_EVENT_ID,
+    FOURTHWALL_GIFT_DRAW_ENDED_EVENT_ID
 } from "../constants";
 
 export const FourthwallProductDescriptionVariable: ReplaceVariable = {
@@ -18,7 +20,9 @@ export const FourthwallProductDescriptionVariable: ReplaceVariable = {
             event: [
                 `${FOURTHWALL_EVENT_SOURCE_ID}:${FOURTHWALL_GIFT_PURCHASE_EVENT_ID}`,
                 `${FOURTHWALL_EVENT_SOURCE_ID}:${FOURTHWALL_PRODUCT_CREATED_EVENT_ID}`,
-                `${FOURTHWALL_EVENT_SOURCE_ID}:${FOURTHWALL_PRODUCT_UPDATED_EVENT_ID}`
+                `${FOURTHWALL_EVENT_SOURCE_ID}:${FOURTHWALL_PRODUCT_UPDATED_EVENT_ID}`,
+                `${FOURTHWALL_EVENT_SOURCE_ID}:${FOURTHWALL_GIFT_DRAW_STARTED_EVENT_ID}`,
+                `${FOURTHWALL_EVENT_SOURCE_ID}:${FOURTHWALL_GIFT_DRAW_ENDED_EVENT_ID}`
             ],
             manual: true
         }

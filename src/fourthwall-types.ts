@@ -12,6 +12,15 @@ type FourthwallEventType =
     | "NEWSLETTER_SUBSCRIBED"
     | "PLATFORM_APP_DISCONNECTED"
 
+    // Hidden beta docs
+    | "GIFT_DRAW_STARTED"
+    | "GIFT_DRAW_ENDED"
+
+    // No docs on these
+    | "PROMOTION_CREATED"
+    | "PROMOTION_UPDATED"
+    | "PROMOTION_STATUS_CHANGED"
+
 type FourthwallPayloadBase = {
     testMode: boolean;
     id: string;
@@ -38,6 +47,15 @@ type FourthwallImage = {
     url: string;
     width: number;
     height: number;
+    transformedUrl: string;
+}
+
+type FourthwallOffer = {
+    id: string;
+    name: string;
+    slug: string;
+    description: string;
+    primaryImage: FourthwallImage;
 }
 
 type FourthwallOrderPayloadData = {
@@ -115,11 +133,13 @@ type FourthwallGiftStatus =
     | "CHANGED_TO_PROMOTION"
 
 type FourthwallGiftBase = {
-    status: FourthwallGiftStatus;
     id: string;
+    status: FourthwallGiftStatus;
     winner?: {
         email?: string;
-        username: string;
+        username?: string;
+        redeemUri?: string;
+        selectedAt?: Date;
     }
 }
 
@@ -154,13 +174,7 @@ type FourthwallGiftPurchasePayload = FourthwallPayloadBase & {
         id: string;
         friendlyId: string;
         shopId: string;
-        offer: {
-            id: string;
-            name: string;
-            slug: string;
-            description: string;
-            primaryImage: FourthwallImage;
-        };
+        offer: FourthwallOffer;
         quantity: number;
         amounts: {
             subtotal: FourthwallValueWithCurrency;
@@ -320,6 +334,83 @@ type FourthwallPlatformAppDisconnectedPayload = FourthwallPayloadBase & {
     };
 }
 
+type FourthwallGiftDrawPayloadData = {
+    id: string;
+    shopId: string;
+    giveawayId: string;
+    durationSeconds: number;
+    giveawayFriendlyId: string;
+    type: string;
+    username: string;
+    email: string;
+    message: string;
+    offer: FourthwallOffer;
+    amounts: {
+        total: FourthwallValueWithCurrency;
+        subtotal: FourthwallValueWithCurrency;
+    },
+    gifts: FourthwallGift[],
+    createdAt: Date;
+}
+
+type FourthwallGiftDrawStartedPayload = FourthwallPayloadBase & {
+    type: "GIFT_DRAW_STARTED";
+    data: FourthwallGiftDrawPayloadData;
+}
+
+type FourthwallGiftDrawEndedPayload = FourthwallPayloadBase & {
+    type: "GIFT_DRAW_ENDED";
+    data: FourthwallGiftDrawPayloadData;
+}
+
+type FourthwallDiscountType = 
+    | "PERCENTAGE"
+
+type FourthwallDiscountBase = {
+    type: FourthwallDiscountType;
+    shippingOption: string;
+}
+
+type FourthwallPercentageDiscount = FourthwallDiscountBase & {
+    type: "PERCENTAGE";
+    percentage: number;
+}
+
+type FourthwallDiscount =
+    | FourthwallPercentageDiscount
+
+type FourthwallPromotionPayloadData = {
+    id: string;
+    type: string;
+    code?: string;
+    requirements: unknown;
+    discount: FourthwallDiscount,
+    appliesTo: {
+        type: string;
+    },
+    limits: {
+        maximumUsesNumber: number;
+        oneUsePerCustomer: boolean;
+    },
+    usageCount: number;
+    status: string;
+}
+
+type FourthwallPromotionCreatedPayload = FourthwallPayloadBase & {
+    type: "PROMOTION_CREATED";
+    data: FourthwallPromotionPayloadData;
+}
+
+type FourthwallPromotionUpdatedPayload = FourthwallPayloadBase & {
+    type: "PROMOTION_UPDATED";
+    data: FourthwallPromotionPayloadData;
+}
+
+type FourthwallPromotionStatusChangedPayload = FourthwallPayloadBase & {
+    type: "PROMOTION_STATUS_CHANGED";
+    data: FourthwallPromotionPayloadData;
+}
+
 export type FourthwallPayload =
     | FourthwallOrderPlacedPayload
     | FourthwallOrderUpdatedPayload
@@ -333,6 +424,11 @@ export type FourthwallPayload =
     | FourthwallThankYouSentPayload
     | FourthwallNewsletterSubscribedPayload
     | FourthwallPlatformAppDisconnectedPayload
+    | FourthwallGiftDrawStartedPayload
+    | FourthwallGiftDrawEndedPayload
+    | FourthwallPromotionCreatedPayload
+    | FourthwallPromotionUpdatedPayload
+    | FourthwallPromotionStatusChangedPayload
 
 type FourthwallEventDataBase = {
     testMode: boolean;
@@ -434,6 +530,24 @@ export type FourthwallPlatformAppDisconnectEventData = FourthwallEventDataBase &
     appId: string;
 }
 
+export type FourthwallGiftDrawEventData = FourthwallEventDataBase & {
+    type: "GIFT_DRAW_STARTED" | "GIFT_DRAW_ENDED";
+    giftDrawId: string;
+    giftDrawType: string;
+    giveawayId: string;
+    giveawayFriendlyId: string;
+    durationSeconds: number;
+    from: string;
+    email: string;
+    donationMessage: string;
+    productId: string;
+    productName: string;
+    productDescription: string;
+    productImageUrl: string;
+    orderTotalAmount: number;
+    currency: string;
+}
+
 export type FourthwallEventData = 
     | FourthwallOrderEventData
     | FourthwallGiftEventData
@@ -443,3 +557,4 @@ export type FourthwallEventData =
     | FourthwallThankYouEventData
     | FourthwallNewsletterSubscriptionEventData
     | FourthwallPlatformAppDisconnectEventData
+    | FourthwallGiftDrawEventData

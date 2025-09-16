@@ -15,3 +15,5 @@ export const FOURTHWALL_SUBSCRIPTION_EXPIRED_EVENT_ID = "subscription-expired";
 export const FOURTHWALL_THANK_YOU_SENT_EVENT_ID = "thank-you-sent";
 export const FOURTHWALL_NEWSLETTER_SUBSCRIBED_EVENT_ID = "newsletter-subscribed";
 export const FOURTHWALL_PLATFORM_APP_DISCONNECTED_EVENT_ID = "platform-app-disconnected";
+export const FOURTHWALL_GIFT_DRAW_STARTED_EVENT_ID = "gift-draw-started";
+export const FOURTHWALL_GIFT_DRAW_ENDED_EVENT_ID = "gift-draw-ended";
