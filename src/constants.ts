@@ -1,6 +1,6 @@
 export const PLUGIN_NAME = "Fourthwall";
 export const PLUGIN_ID = "fourthwall";
-export const VARIABLE_PREFIX = PLUGIN_NAME;
+export const VARIABLE_PREFIX = PLUGIN_ID;
 
 export const FOURTHWALL_EVENT_SOURCE_ID = PLUGIN_ID;
 export const FOURTHWALL_ORDER_PLACED_EVENT_ID = "order-placed";

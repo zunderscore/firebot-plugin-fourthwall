@@ -10,6 +10,7 @@ import { FourthwallVariables, FirebotVariableAdditionalEvents } from "./variable
 import { FourthwallEventData, FourthwallPayload } from "./fourthwall-types";
 
 import {
+    PLUGIN_ID,
     PLUGIN_NAME,
     FOURTHWALL_EVENT_SOURCE_ID,
     FOURTHWALL_ORDER_PLACED_EVENT_ID,
@@ -25,7 +26,7 @@ import {
     FOURTHWALL_NEWSLETTER_SUBSCRIBED_EVENT_ID,
     FOURTHWALL_PLATFORM_APP_DISCONNECTED_EVENT_ID,
     FOURTHWALL_GIFT_DRAW_STARTED_EVENT_ID,
-    FOURTHWALL_GIFT_DRAW_ENDED_EVENT_ID
+    FOURTHWALL_GIFT_DRAW_ENDED_EVENT_ID,
 } from "./constants";
 
 const packageInfo = require("../package.json");
@@ -282,7 +283,7 @@ const script: Firebot.CustomScript<{
             type: "button",
             title: "Webhook URL",
             description: "Copy this URL then go to your Fourthwall account settings. Under Settings > For developers > Webhooks, create a new webhook, paste the copied URL into the **URL** field, select which events you want Fourthwall to send, and click \"Save\".",
-            backendEventName: "fourthwall:copy-webhook-url",
+            backendEventName: `${PLUGIN_ID}:copy-webhook-url`,
             buttonText: "Copy URL",
             icon: "fa-copy",
             sync: true
@@ -314,7 +315,7 @@ const script: Firebot.CustomScript<{
 
         logDebug("Registering frontend listener");
         const frontendCommunicator = modules.frontendCommunicator;
-        frontendCommunicator.on("fourthwall:copy-webhook-url", () => {
+        frontendCommunicator.on(`${PLUGIN_ID}:copy-webhook-url`, () => {
             frontendCommunicator.send("copy-to-clipboard", { 
                 text: webhookManager.getWebhookUrl(PLUGIN_NAME),
             });
