@@ -1,8 +1,5 @@
-import { Firebot } from "@crowbartools/firebot-custom-scripts-types";
-import { Logger } from "@crowbartools/firebot-custom-scripts-types/types/modules/logger";
-import { EventManager } from "@crowbartools/firebot-custom-scripts-types/types/modules/event-manager";
-import { ReplaceVariableManager } from "@crowbartools/firebot-custom-scripts-types/types/modules/replace-variable-manager";
-import { WebhookConfig, WebhookManager } from "@crowbartools/firebot-custom-scripts-types/types/modules/webhook-manager";
+import { Firebot, ScriptModules } from "@crowbartools/firebot-custom-scripts-types";
+import { WebhookConfig } from "@crowbartools/firebot-custom-scripts-types/types/modules/webhook-manager";
 
 import { FourthwallEventSource } from "./events";
 import { FourthwallVariables, FirebotVariableAdditionalEvents } from "./variables";
@@ -31,10 +28,10 @@ import {
 
 const packageInfo = require("../package.json");
 
-let logger: Logger;
-let eventManager: EventManager;
-let replaceVariableManager: ReplaceVariableManager;
-let webhookManager: WebhookManager;
+let logger: ScriptModules["logger"];
+let eventManager: ScriptModules["eventManager"];
+let replaceVariableManager: ScriptModules["replaceVariableManager"];
+let webhookManager: ScriptModules["webhookManager"];
 
 const logDebug = (msg: string, ...meta: any[]) => logger.debug(`[${PLUGIN_NAME}] ${msg}`, ...meta);
 const logInfo = (msg: string, ...meta: any[]) => logger.info(`[${PLUGIN_NAME}] ${msg}`, ...meta);
