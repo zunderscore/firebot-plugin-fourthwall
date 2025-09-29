@@ -94,3 +94,19 @@ export const FourthwallEventSource: EventSource = {
         }
     ]
 }
+
+export function getAllEvents(): string[] {
+    return FourthwallEventSource.events.reduce((out, e) => {
+        out.push(`${EVENT_SOURCE_ID}:${e.id}`);
+        return out;
+    }, [] as string[]);
+}
+
+export function getEventsMatchingPrefix(prefix: string): string[] {
+    return FourthwallEventSource.events.reduce((out, e) => {
+        if (e.id.startsWith(prefix)) {
+            out.push(`${EVENT_SOURCE_ID}:${e.id}`);
+        }
+        return out;
+    }, [] as string[]);
+}
