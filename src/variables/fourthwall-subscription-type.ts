@@ -2,10 +2,10 @@ import { ReplaceVariable } from "@crowbartools/firebot-custom-scripts-types/type
 import { FourthwallSubscriptionEventData } from "../fourthwall-types";
 import {
     VARIABLE_PREFIX,
-    FOURTHWALL_EVENT_SOURCE_ID,
-    FOURTHWALL_SUBSCRIPTION_PURCHASED_EVENT_ID,
-    FOURTHWALL_SUBSCRIPTION_CHANGED_EVENT_ID,
-    FOURTHWALL_SUBSCRIPTION_EXPIRED_EVENT_ID
+    EVENT_SOURCE_ID,
+    SUBSCRIPTION_PURCHASED_EVENT_ID,
+    SUBSCRIPTION_CHANGED_EVENT_ID,
+    SUBSCRIPTION_EXPIRED_EVENT_ID
 } from "../constants";
 
 export const FourthwallSubscriptionTypeVariable: ReplaceVariable = {
@@ -16,9 +16,9 @@ export const FourthwallSubscriptionTypeVariable: ReplaceVariable = {
         categories: [ "trigger based", "advanced" ],
         triggers: {
             event: [
-                `${FOURTHWALL_EVENT_SOURCE_ID}:${FOURTHWALL_SUBSCRIPTION_PURCHASED_EVENT_ID}`,
-                `${FOURTHWALL_EVENT_SOURCE_ID}:${FOURTHWALL_SUBSCRIPTION_CHANGED_EVENT_ID}`,
-                `${FOURTHWALL_EVENT_SOURCE_ID}:${FOURTHWALL_SUBSCRIPTION_EXPIRED_EVENT_ID}`
+                `${EVENT_SOURCE_ID}:${SUBSCRIPTION_PURCHASED_EVENT_ID}`,
+                `${EVENT_SOURCE_ID}:${SUBSCRIPTION_CHANGED_EVENT_ID}`,
+                `${EVENT_SOURCE_ID}:${SUBSCRIPTION_EXPIRED_EVENT_ID}`
             ],
             manual: true
         }

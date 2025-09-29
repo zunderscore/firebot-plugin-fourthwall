@@ -2,12 +2,12 @@ import { ReplaceVariable } from "@crowbartools/firebot-custom-scripts-types/type
 import { FourthwallProductEventData } from "../fourthwall-types";
 import {
     VARIABLE_PREFIX,
-    FOURTHWALL_EVENT_SOURCE_ID,
-    FOURTHWALL_GIFT_PURCHASE_EVENT_ID,
-    FOURTHWALL_PRODUCT_CREATED_EVENT_ID,
-    FOURTHWALL_PRODUCT_UPDATED_EVENT_ID,
-    FOURTHWALL_GIFT_DRAW_STARTED_EVENT_ID,
-    FOURTHWALL_GIFT_DRAW_ENDED_EVENT_ID
+    EVENT_SOURCE_ID,
+    GIFT_PURCHASE_EVENT_ID,
+    PRODUCT_CREATED_EVENT_ID,
+    PRODUCT_UPDATED_EVENT_ID,
+    GIFT_DRAW_STARTED_EVENT_ID,
+    GIFT_DRAW_ENDED_EVENT_ID
 } from "../constants";
 
 export const FourthwallProductNameVariable: ReplaceVariable = {
@@ -18,11 +18,11 @@ export const FourthwallProductNameVariable: ReplaceVariable = {
         categories: [ "trigger based" ],
         triggers: {
             event: [
-                `${FOURTHWALL_EVENT_SOURCE_ID}:${FOURTHWALL_GIFT_PURCHASE_EVENT_ID}`,
-                `${FOURTHWALL_EVENT_SOURCE_ID}:${FOURTHWALL_PRODUCT_CREATED_EVENT_ID}`,
-                `${FOURTHWALL_EVENT_SOURCE_ID}:${FOURTHWALL_PRODUCT_UPDATED_EVENT_ID}`,
-                `${FOURTHWALL_EVENT_SOURCE_ID}:${FOURTHWALL_GIFT_DRAW_STARTED_EVENT_ID}`,
-                `${FOURTHWALL_EVENT_SOURCE_ID}:${FOURTHWALL_GIFT_DRAW_ENDED_EVENT_ID}`
+                `${EVENT_SOURCE_ID}:${GIFT_PURCHASE_EVENT_ID}`,
+                `${EVENT_SOURCE_ID}:${PRODUCT_CREATED_EVENT_ID}`,
+                `${EVENT_SOURCE_ID}:${PRODUCT_UPDATED_EVENT_ID}`,
+                `${EVENT_SOURCE_ID}:${GIFT_DRAW_STARTED_EVENT_ID}`,
+                `${EVENT_SOURCE_ID}:${GIFT_DRAW_ENDED_EVENT_ID}`
             ],
             manual: true
         }

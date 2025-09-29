@@ -12,21 +12,21 @@ import { FourthwallEventData, FourthwallPayload } from "./fourthwall-types";
 import {
     PLUGIN_ID,
     PLUGIN_NAME,
-    FOURTHWALL_EVENT_SOURCE_ID,
-    FOURTHWALL_ORDER_PLACED_EVENT_ID,
-    FOURTHWALL_ORDER_UPDATED_EVENT_ID,
-    FOURTHWALL_DONATION_EVENT_ID,
-    FOURTHWALL_GIFT_PURCHASE_EVENT_ID,
-    FOURTHWALL_PRODUCT_CREATED_EVENT_ID,
-    FOURTHWALL_PRODUCT_UPDATED_EVENT_ID,
-    FOURTHWALL_SUBSCRIPTION_PURCHASED_EVENT_ID,
-    FOURTHWALL_SUBSCRIPTION_CHANGED_EVENT_ID,
-    FOURTHWALL_SUBSCRIPTION_EXPIRED_EVENT_ID,
-    FOURTHWALL_THANK_YOU_SENT_EVENT_ID,
-    FOURTHWALL_NEWSLETTER_SUBSCRIBED_EVENT_ID,
-    FOURTHWALL_PLATFORM_APP_DISCONNECTED_EVENT_ID,
-    FOURTHWALL_GIFT_DRAW_STARTED_EVENT_ID,
-    FOURTHWALL_GIFT_DRAW_ENDED_EVENT_ID,
+    EVENT_SOURCE_ID,
+    ORDER_PLACED_EVENT_ID,
+    ORDER_UPDATED_EVENT_ID,
+    DONATION_EVENT_ID,
+    GIFT_PURCHASE_EVENT_ID,
+    PRODUCT_CREATED_EVENT_ID,
+    PRODUCT_UPDATED_EVENT_ID,
+    SUBSCRIPTION_PURCHASED_EVENT_ID,
+    SUBSCRIPTION_CHANGED_EVENT_ID,
+    SUBSCRIPTION_EXPIRED_EVENT_ID,
+    THANK_YOU_SENT_EVENT_ID,
+    NEWSLETTER_SUBSCRIBED_EVENT_ID,
+    PLATFORM_APP_DISCONNECTED_EVENT_ID,
+    GIFT_DRAW_STARTED_EVENT_ID,
+    GIFT_DRAW_ENDED_EVENT_ID,
 } from "./constants";
 
 const packageInfo = require("../package.json");
@@ -68,12 +68,12 @@ const processWebhook = ({ config, payload }: { config: WebhookConfig, payload: F
             let orderBaseData;
             switch (payload.type) {
                 case "ORDER_PLACED":
-                    eventName = FOURTHWALL_ORDER_PLACED_EVENT_ID;
+                    eventName = ORDER_PLACED_EVENT_ID;
                     orderBaseData = payload.data;
                     break;
 
                 case "ORDER_UPDATED":
-                    eventName = FOURTHWALL_ORDER_UPDATED_EVENT_ID;
+                    eventName = ORDER_UPDATED_EVENT_ID;
                     orderBaseData = payload.data.order;
                     break;
             }
@@ -99,7 +99,7 @@ const processWebhook = ({ config, payload }: { config: WebhookConfig, payload: F
             break;
 
         case "DONATION":
-            eventName = FOURTHWALL_DONATION_EVENT_ID;
+            eventName = DONATION_EVENT_ID;
             eventData = {
                 type: payload.type,
                 ...baseEventData,
@@ -115,7 +115,7 @@ const processWebhook = ({ config, payload }: { config: WebhookConfig, payload: F
             break;
 
         case "GIFT_PURCHASE":
-            eventName = FOURTHWALL_GIFT_PURCHASE_EVENT_ID;
+            eventName = GIFT_PURCHASE_EVENT_ID;
             eventData = {
                 type: payload.type,
                 ...baseEventData,
@@ -139,12 +139,12 @@ const processWebhook = ({ config, payload }: { config: WebhookConfig, payload: F
             let baseProductData;
             switch (payload.type) {
                 case "PRODUCT_CREATED":
-                    eventName = FOURTHWALL_PRODUCT_CREATED_EVENT_ID;
+                    eventName = PRODUCT_CREATED_EVENT_ID;
                     baseProductData = payload.data;
                     break;
 
                 case "PRODUCT_UPDATED":
-                    eventName = FOURTHWALL_PRODUCT_UPDATED_EVENT_ID;
+                    eventName = PRODUCT_UPDATED_EVENT_ID;
                     baseProductData = payload.data.product;
                     break;
             }
@@ -167,15 +167,15 @@ const processWebhook = ({ config, payload }: { config: WebhookConfig, payload: F
         case "SUBSCRIPTION_EXPIRED":
             switch (payload.type) {
                 case "SUBSCRIPTION_PURCHASED":
-                    eventName = FOURTHWALL_SUBSCRIPTION_PURCHASED_EVENT_ID;
+                    eventName = SUBSCRIPTION_PURCHASED_EVENT_ID;
                     break;
 
                 case "SUBSCRIPTION_CHANGED":
-                    eventName = FOURTHWALL_SUBSCRIPTION_CHANGED_EVENT_ID;
+                    eventName = SUBSCRIPTION_CHANGED_EVENT_ID;
                     break;
 
                 case "SUBSCRIPTION_EXPIRED":
-                    eventName = FOURTHWALL_SUBSCRIPTION_EXPIRED_EVENT_ID;
+                    eventName = SUBSCRIPTION_EXPIRED_EVENT_ID;
                     break;
             }
             eventData = {
@@ -193,7 +193,7 @@ const processWebhook = ({ config, payload }: { config: WebhookConfig, payload: F
             break;
 
         case "THANK_YOU_SENT":
-            eventName = FOURTHWALL_THANK_YOU_SENT_EVENT_ID;
+            eventName = THANK_YOU_SENT_EVENT_ID;
             eventData = {
                 type: payload.type,
                 ...baseEventData,
@@ -208,7 +208,7 @@ const processWebhook = ({ config, payload }: { config: WebhookConfig, payload: F
             break;
 
         case "NEWSLETTER_SUBSCRIBED":
-            eventName = FOURTHWALL_NEWSLETTER_SUBSCRIBED_EVENT_ID;
+            eventName = NEWSLETTER_SUBSCRIBED_EVENT_ID;
             eventData = {
                 type: payload.type,
                 ...baseEventData,
@@ -217,7 +217,7 @@ const processWebhook = ({ config, payload }: { config: WebhookConfig, payload: F
             break;
 
         case "PLATFORM_APP_DISCONNECTED":
-            eventName = FOURTHWALL_PLATFORM_APP_DISCONNECTED_EVENT_ID;
+            eventName = PLATFORM_APP_DISCONNECTED_EVENT_ID;
             eventData = {
                 type: payload.type,
                 ...baseEventData,
@@ -229,11 +229,11 @@ const processWebhook = ({ config, payload }: { config: WebhookConfig, payload: F
         case "GIFT_DRAW_ENDED":
             switch (payload.type) {
                 case "GIFT_DRAW_STARTED":
-                    eventName = FOURTHWALL_GIFT_DRAW_STARTED_EVENT_ID;
+                    eventName = GIFT_DRAW_STARTED_EVENT_ID;
                     break;
                 
                 case "GIFT_DRAW_ENDED":
-                    eventName = FOURTHWALL_GIFT_DRAW_ENDED_EVENT_ID;
+                    eventName = GIFT_DRAW_ENDED_EVENT_ID;
                     break;
             }
 
@@ -263,7 +263,7 @@ const processWebhook = ({ config, payload }: { config: WebhookConfig, payload: F
     }
 
     logDebug(`Triggering event ${eventName}`);
-    eventManager.triggerEvent(FOURTHWALL_EVENT_SOURCE_ID, eventName, eventData);
+    eventManager.triggerEvent(EVENT_SOURCE_ID, eventName, eventData);
 };
 
 const script: Firebot.CustomScript<{
@@ -309,7 +309,7 @@ const script: Firebot.CustomScript<{
 
         for (const firebotVariable of Object.keys(FirebotVariableAdditionalEvents)) {
             for (const eventName of FirebotVariableAdditionalEvents[firebotVariable]) {
-                replaceVariableManager.addEventToVariable(firebotVariable, FOURTHWALL_EVENT_SOURCE_ID, eventName);
+                replaceVariableManager.addEventToVariable(firebotVariable, EVENT_SOURCE_ID, eventName);
             }
         }
 

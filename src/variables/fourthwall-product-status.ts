@@ -2,9 +2,9 @@ import { ReplaceVariable } from "@crowbartools/firebot-custom-scripts-types/type
 import { FourthwallProductEventData } from "../fourthwall-types";
 import {
     VARIABLE_PREFIX,
-    FOURTHWALL_EVENT_SOURCE_ID,
-    FOURTHWALL_PRODUCT_CREATED_EVENT_ID,
-    FOURTHWALL_PRODUCT_UPDATED_EVENT_ID
+    EVENT_SOURCE_ID,
+    PRODUCT_CREATED_EVENT_ID,
+    PRODUCT_UPDATED_EVENT_ID
 } from "../constants";
 
 export const FourthwallProductStatusVariable: ReplaceVariable = {
@@ -15,8 +15,8 @@ export const FourthwallProductStatusVariable: ReplaceVariable = {
         categories: [ "trigger based", "advanced" ],
         triggers: {
             event: [
-                `${FOURTHWALL_EVENT_SOURCE_ID}:${FOURTHWALL_PRODUCT_CREATED_EVENT_ID}`,
-                `${FOURTHWALL_EVENT_SOURCE_ID}:${FOURTHWALL_PRODUCT_UPDATED_EVENT_ID}`
+                `${EVENT_SOURCE_ID}:${PRODUCT_CREATED_EVENT_ID}`,
+                `${EVENT_SOURCE_ID}:${PRODUCT_UPDATED_EVENT_ID}`
             ],
             manual: true
         }

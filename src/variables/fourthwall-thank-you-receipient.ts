@@ -2,8 +2,8 @@ import { ReplaceVariable } from "@crowbartools/firebot-custom-scripts-types/type
 import { FourthwallThankYouEventData } from "../fourthwall-types";
 import {
     VARIABLE_PREFIX,
-    FOURTHWALL_EVENT_SOURCE_ID,
-    FOURTHWALL_THANK_YOU_SENT_EVENT_ID
+    EVENT_SOURCE_ID,
+    THANK_YOU_SENT_EVENT_ID
 } from "../constants";
 
 export const FourthwallThankYouRecipientVariable: ReplaceVariable = {
@@ -14,7 +14,7 @@ export const FourthwallThankYouRecipientVariable: ReplaceVariable = {
         categories: [ "trigger based" ],
         triggers: {
             event: [
-                `${FOURTHWALL_EVENT_SOURCE_ID}:${FOURTHWALL_THANK_YOU_SENT_EVENT_ID}`
+                `${EVENT_SOURCE_ID}:${THANK_YOU_SENT_EVENT_ID}`
             ],
             manual: true
         }
