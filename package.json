@@ -1,7 +1,7 @@
 {
   "name": "firebot-plugin-fourthwall",
   "scriptOutputName": "firebot-fourthwall",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A Fourthwall plugin for Firebot",
   "main": "",
   "scripts": {

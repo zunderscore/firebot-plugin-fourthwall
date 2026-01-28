@@ -19,7 +19,8 @@ import {
 export const FourthwallSupporterEmailVariable: ReplaceVariable = {
     definition: {
         handle: `${VARIABLE_PREFIX}SupporterEmail`,
-        description: "**WARNING: Potentially sensitive data! Use this variable with caution!** The email address of the Fourthwall supporter.",
+        description: "The email address of the Fourthwall supporter.",
+        sensitive: true,
         possibleDataOutput: [ "text" ],
         categories: [ "trigger based" ],
         triggers: {
