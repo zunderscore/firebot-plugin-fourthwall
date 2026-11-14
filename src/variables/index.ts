@@ -1,3 +1,5 @@
+import { PluginAdditionalVariableEvents } from "@crowbartools/firebot-types";
+
 import { FourthwallApiVersionVariable } from "./fourthwall-api-version";
 import { FourthwallCurrencyVariable } from "./fourthwall-currency";
 import { FourthwallDonationStatusVariable } from "./fourthwall-donation-status";
@@ -29,12 +31,13 @@ import {
     SUBSCRIPTION_CHANGED_EVENT_ID,
     SUBSCRIPTION_EXPIRED_EVENT_ID,
     GIFT_DRAW_STARTED_EVENT_ID,
-    GIFT_DRAW_ENDED_EVENT_ID
+    GIFT_DRAW_ENDED_EVENT_ID,
+    EVENT_SOURCE_ID
 } from "../constants";
 
 export const FourthwallVariables = [
     FourthwallApiVersionVariable,
-    FourthwallCurrencyVariable,    
+    FourthwallCurrencyVariable,
     FourthwallDonationStatusVariable,
     FourthwallEventIdVariable,
     FourthwallEventTypeVariable,
@@ -56,29 +59,38 @@ export const FourthwallVariables = [
     FourthwallWebhookIdVariable
 ]
 
-export const FirebotVariableAdditionalEvents: Record<string, string[]> = {
-    donationAmount: [
-        ORDER_PLACED_EVENT_ID,
-        ORDER_UPDATED_EVENT_ID,
-        DONATION_EVENT_ID
-    ],
-    donationFrom: [
-        ORDER_PLACED_EVENT_ID,
-        ORDER_UPDATED_EVENT_ID,
-        DONATION_EVENT_ID,
-        GIFT_PURCHASE_EVENT_ID,
-        SUBSCRIPTION_PURCHASED_EVENT_ID,
-        SUBSCRIPTION_CHANGED_EVENT_ID,
-        SUBSCRIPTION_EXPIRED_EVENT_ID,
-        GIFT_DRAW_STARTED_EVENT_ID,
-        GIFT_DRAW_ENDED_EVENT_ID
-    ],
-    donationMessage: [
-        ORDER_PLACED_EVENT_ID,
-        ORDER_UPDATED_EVENT_ID,
-        DONATION_EVENT_ID,
-        GIFT_PURCHASE_EVENT_ID,
-        GIFT_DRAW_STARTED_EVENT_ID,
-        GIFT_DRAW_ENDED_EVENT_ID
-    ]
-}
+export const FirebotVariableAdditionalEvents: PluginAdditionalVariableEvents[] = [
+    {
+        handle: "donationAmount",
+        events: [
+            { eventSourceId: EVENT_SOURCE_ID, eventId: ORDER_PLACED_EVENT_ID },
+            { eventSourceId: EVENT_SOURCE_ID, eventId: ORDER_UPDATED_EVENT_ID },
+            { eventSourceId: EVENT_SOURCE_ID, eventId: DONATION_EVENT_ID }
+        ],
+    },
+    {
+        handle: "donationFrom",
+        events: [
+            { eventSourceId: EVENT_SOURCE_ID, eventId: ORDER_PLACED_EVENT_ID },
+            { eventSourceId: EVENT_SOURCE_ID, eventId: ORDER_UPDATED_EVENT_ID },
+            { eventSourceId: EVENT_SOURCE_ID, eventId: DONATION_EVENT_ID },
+            { eventSourceId: EVENT_SOURCE_ID, eventId: GIFT_PURCHASE_EVENT_ID },
+            { eventSourceId: EVENT_SOURCE_ID, eventId: SUBSCRIPTION_PURCHASED_EVENT_ID },
+            { eventSourceId: EVENT_SOURCE_ID, eventId: SUBSCRIPTION_CHANGED_EVENT_ID },
+            { eventSourceId: EVENT_SOURCE_ID, eventId: SUBSCRIPTION_EXPIRED_EVENT_ID },
+            { eventSourceId: EVENT_SOURCE_ID, eventId: GIFT_DRAW_STARTED_EVENT_ID },
+            { eventSourceId: EVENT_SOURCE_ID, eventId: GIFT_DRAW_ENDED_EVENT_ID },
+        ],
+    },
+    {
+        handle: "donationMessage",
+        events: [
+            { eventSourceId: EVENT_SOURCE_ID, eventId: ORDER_PLACED_EVENT_ID },
+            { eventSourceId: EVENT_SOURCE_ID, eventId: ORDER_UPDATED_EVENT_ID },
+            { eventSourceId: EVENT_SOURCE_ID, eventId: DONATION_EVENT_ID },
+            { eventSourceId: EVENT_SOURCE_ID, eventId: GIFT_PURCHASE_EVENT_ID },
+            { eventSourceId: EVENT_SOURCE_ID, eventId: GIFT_DRAW_STARTED_EVENT_ID },
+            { eventSourceId: EVENT_SOURCE_ID, eventId: GIFT_DRAW_ENDED_EVENT_ID },
+        ],
+    },
+];

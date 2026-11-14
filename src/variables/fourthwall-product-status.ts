@@ -1,4 +1,4 @@
-import { ReplaceVariable } from "@crowbartools/firebot-custom-scripts-types/types/modules/replace-variable-manager";
+import type { ReplaceVariable } from "@crowbartools/firebot-types";
 import { FourthwallProductEventData } from "../fourthwall-types";
 import {
     VARIABLE_PREFIX,
@@ -11,8 +11,8 @@ export const FourthwallProductStatusVariable: ReplaceVariable = {
     definition: {
         handle: `${VARIABLE_PREFIX}ProductStatus`,
         description: "The status of the Fourthwall product.",
-        possibleDataOutput: [ "text" ],
-        categories: [ "trigger based", "advanced" ],
+        possibleDataOutput: ["text"],
+        categories: ["trigger based", "advanced"],
         triggers: {
             event: [
                 `${EVENT_SOURCE_ID}:${PRODUCT_CREATED_EVENT_ID}`,
